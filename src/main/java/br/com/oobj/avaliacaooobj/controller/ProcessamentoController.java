@@ -20,7 +20,7 @@ public class ProcessamentoController {
 
     @PostMapping("/pre-impressao")
     public String enviaDocumento(@RequestBody String texto) throws IOException {
-        converteArquivo.converteArquivo(texto);
+        converteArquivo.converterTextoParaArquivo(texto);
         return "{\"preImpressaoSolicitada\":true}";
 
     }

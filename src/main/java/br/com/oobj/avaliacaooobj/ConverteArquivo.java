@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class ConverteArquivo {
 
-    public void converteArquivo(String arquivo) throws IOException {
+    public void converterTextoParaArquivo(String arquivo) throws IOException {
         try{
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
