@@ -1,7 +1,6 @@
-package br.com.oobj.avaliacaooobj.controller;
+package br.com.oobj.avaliacaooobj.integrador.controller;
 
 import br.com.oobj.avaliacaooobj.PreImpressaoService;
-import br.com.oobj.avaliacaooobj.converter.ConverteArquivo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

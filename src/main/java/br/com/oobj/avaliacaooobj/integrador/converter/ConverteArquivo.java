@@ -1,11 +1,12 @@
-package br.com.oobj.avaliacaooobj.converter;
+package br.com.oobj.avaliacaooobj.integrador.converter;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.Buffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -15,13 +16,18 @@ public class ConverteArquivo {
     public String converterTextoParaArquivo(String texto) {
         try{
             String nomeArquivo = retornaNomeDoArquivoFormatado();
-            String diretorio = "C:/Users/Giulia-Oobj/Oobj/Avaliacao/entrada/";
+            String diretorio = "src\\main\\resources\\arquivos\\entrada\\";
             File arquivoEntrada = new File(diretorio,nomeArquivo);
 
             if(arquivoEntrada.createNewFile()){
-                FileWriter myWriter = new FileWriter(arquivoEntrada);
-                myWriter.write(texto);
-                myWriter.close();
+                FileWriter fileWriter = new FileWriter(arquivoEntrada);
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+                bufferedWriter.write(texto);
+                bufferedWriter.newLine();
+                bufferedWriter.close();
+                fileWriter.close();
+
                 return diretorio+nomeArquivo;
             } else {
                 System.out.println("Erro ao criar arquivo");
