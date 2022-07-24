@@ -1,5 +1,7 @@
 package br.com.oobj.avaliacaooobj.enfileirador;
 
+import br.com.oobj.avaliacaooobj.broker.EnviarMensagem;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -7,6 +9,7 @@ import java.io.IOException;
 
 public class LeitorArquivo {
     public String diretorioDoArquivo = "";
+    public EnviarMensagem enviarMensagem = new EnviarMensagem();
     public void lerArquivo(String diretorio){
         try {
             FileReader fileReader = new FileReader(diretorio);
@@ -23,8 +26,8 @@ public class LeitorArquivo {
                 if(linha.equals("25000;STAPLE_TOP_LEFT")){
 
                     mensagem = conteudo.toString();
-                    // chamar função para mandar mensagem para o ActiveMQ
-                    System.out.println(mensagem);
+                    enviarMensagem.enviaMensagem(mensagem, "pre_impressao");
+//                    System.out.println(mensagem);
                 }
                 linha = bufferedReader.readLine();
             }

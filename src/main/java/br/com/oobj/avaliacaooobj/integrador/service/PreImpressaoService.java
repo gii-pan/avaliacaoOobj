@@ -1,4 +1,4 @@
-package br.com.oobj.avaliacaooobj;
+package br.com.oobj.avaliacaooobj.integrador.service;
 
 import br.com.oobj.avaliacaooobj.integrador.converter.ConverteArquivo;
 import br.com.oobj.avaliacaooobj.enfileirador.LeitorArquivo;
