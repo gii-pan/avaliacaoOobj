@@ -1,37 +1,47 @@
 package br.com.oobj.avaliacaooobj.enfileirador;
 
-import br.com.oobj.avaliacaooobj.broker.EnviarMensagem;
+import br.com.oobj.avaliacaooobj.broker.EnviaMensagem;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+@Component
 public class LeitorArquivo {
     public String diretorioDoArquivo = "";
-    public EnviarMensagem enviarMensagem = new EnviarMensagem();
+    public String fila = "pre_impressao";
+    public String mensagem = "";
+    public String linha = "";
+
+    public String resetador = "";
+    private final EnviaMensagem enviaMensagem;
+    public LeitorArquivo(EnviaMensagem enviaMensagem) {
+        this.enviaMensagem = enviaMensagem;
+    }
+
     public void lerArquivo(String diretorio){
         try {
             FileReader fileReader = new FileReader(diretorio);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            String mensagem;
             StringBuilder conteudo = new StringBuilder();
-            String linha = bufferedReader.readLine();
+            linha = bufferedReader.readLine();
 
             while (linha != null) {
                 conteudo.append(linha);
                 conteudo.append(System.lineSeparator());
 
                 if(linha.equals("25000;STAPLE_TOP_LEFT")){
-
                     mensagem = conteudo.toString();
-                    enviarMensagem.enviaMensagem(mensagem, "pre_impressao");
-//                    System.out.println(mensagem);
+                    enviaMensagem.enviaMensagem(fila, mensagem);
+                    conteudo.delete(0, conteudo.length());
                 }
                 linha = bufferedReader.readLine();
             }
             fileReader.close();
+            bufferedReader.close();
             diretorioDoArquivo = diretorio;
             moverArquivoParaProcessados();
 

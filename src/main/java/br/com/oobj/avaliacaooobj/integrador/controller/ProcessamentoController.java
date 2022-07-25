@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 @RestController
 @RequestMapping("api")
 public class ProcessamentoController {
@@ -20,11 +22,11 @@ public class ProcessamentoController {
 
     @PostMapping("/pre-impressao")
     public ResponseEntity<String> enviaDocumento(@RequestBody String texto) {
-        if(!texto.isEmpty()){
+        if(!Objects.equals(texto, " ")){
             preImpressaoService.realizarPreImpressao(texto);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body("preImpressaoSolicitada: true;");
         }
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Não autorizado");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Requisição inválida");
 
     }
 
