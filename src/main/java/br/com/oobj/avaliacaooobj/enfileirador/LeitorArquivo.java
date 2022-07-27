@@ -14,8 +14,6 @@ public class LeitorArquivo {
     public String fila = "pre_impressao";
     public String mensagem = "";
     public String linha = "";
-
-    public String resetador = "";
     private final EnviaMensagem enviaMensagem;
     public LeitorArquivo(EnviaMensagem enviaMensagem) {
         this.enviaMensagem = enviaMensagem;

@@ -1,14 +1,20 @@
 package br.com.oobj.avaliacaooobj.Receiver;
 
+import br.com.oobj.avaliacaooobj.service.ArquivoService;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+@Component
 public class CriaArquivoFinal {
-    public String itinerario = "";
-    public String sequencia = "";
-    public String layoutFinal = "";
+    private String itinerario = "";
+    private final List<String> saidaFinal = new ArrayList<>();
+    public String diretorio = "src\\main\\resources\\arquivos\\saida\\";
+    private final ArquivoService arquivoService = new ArquivoService();
+
     public void criaLayout(List<String> mensagemListener) {
-        List<String> saidaFinal = new ArrayList<>();
 
         for (String mensagemConsumida : mensagemListener) {
             String[] linhasmensagem = mensagemConsumida.split("\n");
@@ -20,11 +26,19 @@ public class CriaArquivoFinal {
                 }
                 if (linha.startsWith("22007")) {
                     String linhaSemEspaco = linha.replace(" ", "");
-                    sequencia = linhaSemEspaco.substring(linhaSemEspaco.indexOf("SEQ:")+4);
-                    layoutFinal = itinerario+" | "+sequencia;
+                    String sequencia = linhaSemEspaco.substring(linhaSemEspaco.indexOf("SEQ:") + 4);
+                    String layoutFinal = itinerario + " | " + sequencia;
                     saidaFinal.add(layoutFinal);
                 }
             }
         }
+        Collections.sort(saidaFinal);
+    }
+
+    public void escreveArquivoFinal(List<String> mensagemListener, String nomeArquivoEntrada) {
+        criaLayout(mensagemListener);
+        String ordena = String.join("\n", saidaFinal);
+        String nomeArquivoSaida = arquivoService.retornaNomeDoArquivoDeSaidaFormatado(nomeArquivoEntrada);
+        arquivoService.escreveArquivo(diretorio, nomeArquivoSaida, ordena);
     }
 }

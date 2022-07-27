@@ -1,46 +1,17 @@
 package br.com.oobj.avaliacaooobj.integrador.converter;
 
+import br.com.oobj.avaliacaooobj.service.ArquivoService;
 import org.springframework.stereotype.Component;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Component
 public class ConverteArquivo {
+    public ArquivoService arquivoService = new ArquivoService();
+    public String converterTextoParaArquivo(String texto, String nomeArquivo) {
 
-    public String converterTextoParaArquivo(String texto) {
-        try{
-            String nomeArquivo = retornaNomeDoArquivoFormatado();
-            String diretorio = "src\\main\\resources\\arquivos\\entrada\\";
-            File arquivoEntrada = new File(diretorio,nomeArquivo);
+        String diretorio = "src\\main\\resources\\arquivos\\entrada\\";
 
-            if(arquivoEntrada.createNewFile()){
-                FileWriter fileWriter = new FileWriter(arquivoEntrada);
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-                bufferedWriter.write(texto);
-                bufferedWriter.newLine();
-                bufferedWriter.close();
-                fileWriter.close();
-
-                return diretorio+nomeArquivo;
-            } else {
-                System.out.println("Erro ao criar arquivo");
-            }
-        }catch (IOException e) {
-            System.out.println("Erro ao converter arquivo");
-            e.printStackTrace();
-        }
-        return null;
+        arquivoService.escreveArquivo(diretorio, nomeArquivo,texto);
+        return diretorio+nomeArquivo;
     }
 
-    public String retornaNomeDoArquivoFormatado(){
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS");
-        String timestamp = LocalDateTime.now().format(formatter);
-        return "pre-impressao-" + timestamp + ".txt";
-    }
 }

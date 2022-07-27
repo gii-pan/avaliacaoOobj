@@ -1,4 +1,4 @@
-package br.com.oobj.avaliacaooobj.integrador.service;
+package br.com.oobj.avaliacaooobj.service;
 
 import br.com.oobj.avaliacaooobj.Receiver.CriaArquivoFinal;
 import br.com.oobj.avaliacaooobj.Receiver.RecebeMensagem;
@@ -15,6 +15,8 @@ public class PreImpressaoService {
 
     private final CriaArquivoFinal criaArquivoFinal = new CriaArquivoFinal();
 
+    private final ArquivoService arquivoService = new ArquivoService();
+
     private final LeitorArquivo leitorArquivo;
 
     private final RecebeMensagem recebeMensagem;
@@ -24,8 +26,11 @@ public class PreImpressaoService {
     }
 
     public void realizarPreImpressao(String textoRequisicao) {
+        // Retorna o nome do arquivo de entrada formatado
+        String nomeArquivoDeEntrada = arquivoService.retornaNomeDoArquivoDeEntradaFormatado();
+
         // Recebe da Requisição e transforma em arquivo
-        String diretorio = converteArquivo.converterTextoParaArquivo(textoRequisicao);
+        String diretorio = converteArquivo.converterTextoParaArquivo(textoRequisicao, nomeArquivoDeEntrada);
 
         // Realiza leitura e transforma em mensagem
         leitorArquivo.lerArquivo(diretorio);
@@ -33,7 +38,8 @@ public class PreImpressaoService {
         // Consumir as mensagens e enviar arquivo final
         List<String> listaDeMensagensConsumidas = recebeMensagem.retornaMensagem();
 
-        criaArquivoFinal.criaLayout(listaDeMensagensConsumidas);
+        // Cria arquivo final formatado
+        criaArquivoFinal.escreveArquivoFinal(listaDeMensagensConsumidas, nomeArquivoDeEntrada);
 
     }
 }
