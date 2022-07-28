@@ -5,13 +5,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ConverteArquivo {
-    public ArquivoService arquivoService = new ArquivoService();
+    private final ArquivoService arquivoService;
+    public ConverteArquivo(ArquivoService arquivoService) {
+        this.arquivoService = arquivoService;
+    }
     public String converterTextoParaArquivo(String texto, String nomeArquivo) {
 
-        String diretorio = "src\\main\\resources\\arquivos\\entrada\\";
+        String diretorioEntrada = "src\\main\\resources\\arquivos\\entrada\\";
+        arquivoService.escreveArquivo(diretorioEntrada, nomeArquivo,texto);
 
-        arquivoService.escreveArquivo(diretorio, nomeArquivo,texto);
-        return diretorio+nomeArquivo;
+        return diretorioEntrada +nomeArquivo;
     }
 
 }

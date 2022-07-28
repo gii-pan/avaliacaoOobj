@@ -10,29 +10,28 @@ import java.io.IOException;
 
 @Component
 public class LeitorArquivo {
-    public String diretorioDoArquivo = "";
-    public String fila = "pre_impressao";
-    public String mensagem = "";
-    public String linha = "";
+    private String diretorioDoArquivo = "";
     private final EnviaMensagem enviaMensagem;
     public LeitorArquivo(EnviaMensagem enviaMensagem) {
         this.enviaMensagem = enviaMensagem;
     }
 
     public void lerArquivo(String diretorio){
+
         try {
             FileReader fileReader = new FileReader(diretorio);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             StringBuilder conteudo = new StringBuilder();
-            linha = bufferedReader.readLine();
+            String linha = bufferedReader.readLine();
 
             while (linha != null) {
                 conteudo.append(linha);
                 conteudo.append(System.lineSeparator());
 
                 if(linha.equals("25000;STAPLE_TOP_LEFT")){
-                    mensagem = conteudo.toString();
+                    String mensagem = conteudo.toString();
+                    String fila = "pre_impressao";
                     enviaMensagem.enviaMensagem(fila, mensagem);
                     conteudo.delete(0, conteudo.length());
                 }
@@ -57,7 +56,7 @@ public class LeitorArquivo {
 
         boolean sucesso = diretorioEntrada.renameTo(new File(diretorioDestino, diretorioEntrada.getName()));
         if (sucesso) {
-            System.out.println("Arquivo movido para '" + diretorioDestino.getAbsolutePath() + "'");
+            System.out.println("Arquivo será movido para '" + diretorioDestino.getAbsolutePath() + "'");
         } else {
             System.out.println("Erro ao mover arquivo '" + diretorioEntrada.getAbsolutePath() + "' para '"
                     + diretorioDestino.getAbsolutePath() + "'");

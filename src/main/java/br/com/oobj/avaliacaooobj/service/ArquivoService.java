@@ -23,7 +23,6 @@ public class ArquivoService {
                 bufferedWriter.newLine();
                 bufferedWriter.close();
                 fileWriter.close();
-
             } else {
                 System.out.println("Erro ao criar arquivo");
             }

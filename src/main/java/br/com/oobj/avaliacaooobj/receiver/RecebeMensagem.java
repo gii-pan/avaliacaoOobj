@@ -1,4 +1,4 @@
-package br.com.oobj.avaliacaooobj.Receiver;
+package br.com.oobj.avaliacaooobj.receiver;
 
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
@@ -18,6 +18,10 @@ public class RecebeMensagem {
 
     public List<String> retornaMensagem() {
         return listaDeMensagem;
+    }
+
+    public void resetarLista() {
+        listaDeMensagem.clear();
     }
 
 }
