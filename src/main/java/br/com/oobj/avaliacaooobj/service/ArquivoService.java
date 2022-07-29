@@ -39,7 +39,7 @@ public class ArquivoService {
     }
 
     public String retornaNomeDoArquivoDeSaidaFormatado(String nomeArquivo) {
-        String nomeArquivoFinal = nomeArquivo.substring(0, 30);
+        String nomeArquivoFinal = nomeArquivo.substring(0, 31);
         return nomeArquivoFinal + "-retorno.txt";
     }
 
