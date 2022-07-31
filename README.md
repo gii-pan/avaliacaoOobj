@@ -1,6 +1,8 @@
 # avaliacaoOobj
 Projeto disponibilizado pela Oobj para avaliação
 
+Encontra-se na branch master
+
 O projeto desenvolvido consiste de uma solução de integração nos moldes das soluções conhecidas no mercado. Há 5 componentes principais:
 
 Sender
