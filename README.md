@@ -1,9 +1,6 @@
 # avaliacaoOobj
 Projeto disponibilizado pela Oobj para avaliação
 
-É necessário anexar no header da requisição pelo postman o seguinte trecho:
-Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJQcm9qZWN0TkYiLCJzdWIiOiJBUEktS2V5IiwiaWF0IjoxNjU5MDUwNDg0fQ.XxuWDgE2ffVJNHOXoy04xDa7uGox0PwiHvIdbYGjhcA
-
 O projeto desenvolvido consiste de uma solução de integração nos moldes das soluções conhecidas no mercado. Há 5 componentes principais:
 
 Sender
